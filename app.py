@@ -3,6 +3,10 @@ from flask import Flask, render_template
 
 def create_app():
     app = Flask(__name__)
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myDB.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #to supress warning
+    db = SQLAlchemy(app)
 
     @app.route("/")
     def index():

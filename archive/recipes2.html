@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <a href="/">Back To Recipe List</a>
+    <h1>{{ template_recipe | title }}</h1>
+    <!-- Insert description if statement here -->
+    {% if template_description %}
+    <p>{{ template_description }}</p>
+    {% else %}
+
+    <p>A {{ template_recipe }} recipe.</p>
+    <!-- Be sure to close with an endif block -->
+    {% endif %}
+    <h3>Ingredients - {{ template_ingredients | length}}</h3>
+    <ul>
+      <li>{{ template_ingredients[0] }}</li>
+      <li>{{ template_ingredients[1] }}</li>
+      <!-- Insert ingredient if statement -->
+      <!-- Be sure to close with an endif block -->
+    {% if template_ingredients | length == 3 %}
+      <li>{{ template_ingredients[2] }}</li>
+    {% endif %}
+    </ul>
+    <h3>Instructions</h3>
+    <ol>
+      <li>{{ template_instructions | dictsort }}</li>
+    </ol>
+  </body>
+</html>

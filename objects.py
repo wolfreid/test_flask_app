@@ -1,5 +1,6 @@
 from app import db
 from datetime import datetime
+from datetime import timezone
 
 class Book(db.Model):
     """Book model for storing book information."""
@@ -11,7 +12,7 @@ class Book(db.Model):
     author_surname = db.Column(db.String(80), index=True, nullable=False)
     month = db.Column(db.String(20), index=True)
     year = db.Column(db.Integer, index=True, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     # Relationships
     reviews = db.relationship('Review', backref='book', lazy='dynamic', cascade='all, delete-orphan')
@@ -41,7 +42,7 @@ class Reader(db.Model):
     name = db.Column(db.String(50), index=True, nullable=False)
     surname = db.Column(db.String(80), index=True, nullable=False)
     email = db.Column(db.String(120), unique=True, index=True, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     # Relationships
     reviews = db.relationship('Review', backref='reviewer', lazy='dynamic', cascade='all, delete-orphan')
@@ -66,7 +67,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     stars = db.Column(db.Integer, nullable=False)
     text = db.Column(db.String(500), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     # Foreign Keys
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
@@ -90,7 +91,7 @@ class Annotation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(500), nullable=False)
     page_number = db.Column(db.Integer)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     # Foreign Keys
     reviewer_id = db.Column(db.Integer, db.ForeignKey('readers.id'), nullable=False)
